@@ -1,34 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { PropertiesAPI } from '../../api/PropertiesAPI';
+import React from 'react';
+import { useProperties } from '../../api/useProperties';
 import PropertyCard from '../PropertyCard';
 import './PropertyListing.scss';
 
 const PropertyListing = () => {
-    const [propertiesData, setPropertiesData] = useState();
-    const [error, setError] = useState();
-
-    useEffect(() => {
-        PropertiesAPI.getProperties()
-            .then((response) => response.json())
-            .then((data) => setPropertiesData(data))
-            .catch((e) => setError(e));
-    }, []);
+    const { loading, data, error } = useProperties();
 
     return (
-        <>
-            {!propertiesData && !error && <div>Loading...</div>}
-            {propertiesData?.length === 0 && <div>No results found</div>}
-            {propertiesData?.length > 0 && (
-                <ul className="PropertyListing">
-                    {propertiesData.map((property, index) => (
+        <div className="PropertyListing">
+            {loading && <div className="message">Loading...</div>}
+            {data?.length === 0 && <div className="message">No results found</div>}
+            {data?.length > 0 && (
+                <ul>
+                    {data.map((property, index) => (
                         <li key={index}>
                             <PropertyCard {...property} />
                         </li>
                     ))}
                 </ul>
             )}
-            {error && <div>{error}</div>}
-        </>
+            {error && <div className="error">{error}</div>}
+        </div>
     );
 };
 
