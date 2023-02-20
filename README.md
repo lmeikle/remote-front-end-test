@@ -1,5 +1,13 @@
 # FED Test
 
+## Changes I have made
+- I have updated the app to fetch the properties from the api/properties endpoint.
+- Since the data is no longer hard coded and therefore not fixed - I have added loading, error and no data found states (along with tests).
+- I have decoupled the unit tests from the server data, this keeps them isolated and less fragile, you shouldn't have to run the server to run the unit tests.
+- I have kept it very simple and not used something like Redux - that would be overkill for this simple app and given the time indication of 15mins it didn’t seem like that’s what was required.
+
+-------------------
+
 ## Instructions
 
 This test requires Node.js version v14.18 or higher to be installed.
